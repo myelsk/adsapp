@@ -1,0 +1,19 @@
+.pagination > li {
+    margin-right: 10px;
+}
+
+.alert-msg {
+    position: absolute;
+    bottom: -10px;
+    right: 0;
+}
+
+.edit-form {
+    float: left;
+    margin-right: 10px;
+}
+
+.welcome-message {
+    float: left;
+    margin: 3px 10px 10px 5px;
+}
