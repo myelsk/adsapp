@@ -45,6 +45,7 @@ class AdsController extends Controller
             'description' => 'required|min:5|max:255'
         ]);
 
+
         $ad = Ad::create([
             'title' => request('title'),
             'description' => request('description'),
@@ -89,12 +90,17 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'title' => 'required|min:2|max:50',
-            'description' => 'required|min:5|max:255'
-        ]);
 
-        Ad::find($id)->update($request->all());
+        $ad = Ad::find($id);
+
+        if (auth()->id() == $ad->user->id) {
+            $ad->update($request->all());
+        } else {
+            session()->flash('message', 'You dont have permission to update this ad');
+            return redirect()->home();
+        }
+
+
 
         session()->flash('message', 'Ad have been updated');
 
