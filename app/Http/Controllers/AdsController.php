@@ -41,8 +41,8 @@ class AdsController extends Controller
     {
 
         $this->validate(request(), [
-            'title' => 'required|min:2',
-            'description' => 'required|min:5'
+            'title' => 'required|min:2|max:50',
+            'description' => 'required|min:5|max:255'
         ]);
 
         $ad = Ad::create([
@@ -89,6 +89,10 @@ class AdsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required|min:2|max:50',
+            'description' => 'required|min:5|max:255'
+        ]);
 
         Ad::find($id)->update($request->all());
 
