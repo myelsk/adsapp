@@ -100,8 +100,6 @@ class AdsController extends Controller
             return redirect()->home();
         }
 
-
-
         session()->flash('message', 'Ad have been updated');
 
         return redirect()->home();
@@ -117,7 +115,12 @@ class AdsController extends Controller
     {
         $ad = Ad::find($id);
 
-        $ad->delete();
+        if (auth()->id() == $ad->user->id) {
+            $ad->delete();
+        } else {
+            session()->flash('message', 'You dont have permission to delete this ad');
+            return redirect()->home();
+        }
 
         session()->flash('message', 'Ad have been deleted');
 
